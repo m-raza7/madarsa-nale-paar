@@ -15,7 +15,10 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — Madarsa Al-Noor" },
-      { name: "description", content: "Reach Madarsa Al-Noor by phone, email, WhatsApp or visit our campus." },
+      {
+        name: "description",
+        content: "Reach Madarsa Al-Noor by phone, email, WhatsApp or visit our campus.",
+      },
       { property: "og:title", content: "Contact" },
       { property: "og:description", content: "Get in touch with Madarsa Al-Noor." },
     ],
@@ -37,7 +40,10 @@ function Contact() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     const parsed = schema.safeParse(form);
-    if (!parsed.success) { toast.error(parsed.error.issues[0]?.message ?? "Invalid input"); return; }
+    if (!parsed.success) {
+      toast.error(parsed.error.issues[0]?.message ?? "Invalid input");
+      return;
+    }
     setLoading(true);
     const { error } = await supabase.from("contacts").insert(parsed.data);
     // Optionally send via EmailJS if configured (publishable IDs are safe in client)
@@ -45,11 +51,18 @@ function Contact() {
     const TEMPLATE = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
     const PUBLIC = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
     if (SERVICE && TEMPLATE && PUBLIC) {
-      try { await emailjs.send(SERVICE, TEMPLATE, parsed.data, { publicKey: PUBLIC }); } catch { /* non-fatal */ }
+      try {
+        await emailjs.send(SERVICE, TEMPLATE, parsed.data, { publicKey: PUBLIC });
+      } catch {
+        /* non-fatal */
+      }
     }
     setLoading(false);
     if (error) toast.error(error.message);
-    else { toast.success("Message received. We'll reply soon, in sha Allah."); setForm({ name: "", email: "", phone: "", message: "" }); }
+    else {
+      toast.success("Message received. We'll reply soon, in sha Allah.");
+      setForm({ name: "", email: "", phone: "", message: "" });
+    }
   };
 
   return (
@@ -69,18 +82,37 @@ function Contact() {
             { icon: Mail, label: "Email", value: "info@madrasaalnoor.edu" },
           ].map((c) => (
             <Card key={c.label} className="p-5 flex items-center gap-4 hover:shadow-elegant">
-              <div className="h-12 w-12 rounded-xl bg-primary-gradient grid place-items-center"><c.icon className="h-5 w-5 text-primary-foreground" /></div>
-              <div><div className="text-xs uppercase tracking-wider text-muted-foreground">{c.label}</div><div className="font-medium">{c.value}</div></div>
+              <div className="h-12 w-12 rounded-xl bg-primary-gradient grid place-items-center">
+                <c.icon className="h-5 w-5 text-primary-foreground" />
+              </div>
+              <div>
+                <div className="text-xs uppercase tracking-wider text-muted-foreground">
+                  {c.label}
+                </div>
+                <div className="font-medium">{c.value}</div>
+              </div>
             </Card>
           ))}
-          <a href="https://wa.me/919000000000" target="_blank" rel="noreferrer">
+          <a href="https://wa.me/919000000000" target="_blank" rel="noopener noreferrer">
             <Card className="p-5 flex items-center gap-4 bg-[#25D366]/10 border-[#25D366]/30 hover:shadow-elegant transition">
-              <div className="h-12 w-12 rounded-xl bg-[#25D366] grid place-items-center"><MessageCircle className="h-5 w-5 text-white" /></div>
-              <div><div className="text-xs uppercase tracking-wider text-muted-foreground">WhatsApp</div><div className="font-medium">Chat with us</div></div>
+              <div className="h-12 w-12 rounded-xl bg-[#25D366] grid place-items-center">
+                <MessageCircle className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <div className="text-xs uppercase tracking-wider text-muted-foreground">
+                  WhatsApp
+                </div>
+                <div className="font-medium">Chat with us</div>
+              </div>
             </Card>
           </a>
           <Card className="overflow-hidden">
-            <iframe title="map" className="w-full h-64" src="https://www.google.com/maps?q=Lucknow+India&output=embed" loading="lazy" />
+            <iframe
+              title="map"
+              className="w-full h-64"
+              src="https://www.google.com/maps?q=Lucknow+India&output=embed"
+              loading="lazy"
+            />
           </Card>
         </div>
 
@@ -88,12 +120,43 @@ function Contact() {
           <h2 className="font-display text-2xl font-bold mb-4">Send a Message</h2>
           <form onSubmit={submit} className="space-y-4">
             <div className="grid grid-cols-2 gap-3">
-              <div><Label>Name *</Label><Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required /></div>
-              <div><Label>Phone</Label><Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} /></div>
+              <div>
+                <Label>Name *</Label>
+                <Input
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  required
+                />
+              </div>
+              <div>
+                <Label>Phone</Label>
+                <Input
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                />
+              </div>
             </div>
-            <div><Label>Email *</Label><Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required /></div>
-            <div><Label>Message *</Label><Textarea rows={5} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required /></div>
-            <Button type="submit" disabled={loading} className="w-full bg-primary-gradient">{loading ? "Sending..." : "Send Message"}</Button>
+            <div>
+              <Label>Email *</Label>
+              <Input
+                type="email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                required
+              />
+            </div>
+            <div>
+              <Label>Message *</Label>
+              <Textarea
+                rows={5}
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                required
+              />
+            </div>
+            <Button type="submit" disabled={loading} className="w-full bg-primary-gradient">
+              {loading ? "Sending..." : "Send Message"}
+            </Button>
           </form>
         </Card>
       </section>
