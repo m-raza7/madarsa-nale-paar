@@ -77,7 +77,7 @@ function Contact() {
       <section className="container mx-auto px-4 py-14 grid lg:grid-cols-2 gap-8">
         <div className="space-y-4">
           {[
-            { icon: MapPin, label: "Address", value: "123 Rahmat Road, Lucknow, India" },
+            { icon: MapPin, label: "Address", value: "Naya bazaar, Kamptee, dist. Nagpur, India" },
             { icon: Phone, label: "Phone", value: "+91 90000 00000" },
             { icon: Mail, label: "Email", value: "info@madrasaalnoor.edu" },
           ].map((c) => (
@@ -110,7 +110,8 @@ function Contact() {
             <iframe
               title="map"
               className="w-full h-64"
-              src="https://www.google.com/maps?q=Lucknow+India&output=embed"
+              src="https://www.google.com/maps?q=Kamptee+India&output=embed"
+              //  src="https://www.google.com/maps?q=Naya+bazaar,+Kamptee,+dist.+Nagpur,+India&output=embed"
               loading="lazy"
             />
           </Card>

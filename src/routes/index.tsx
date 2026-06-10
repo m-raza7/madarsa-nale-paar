@@ -304,7 +304,7 @@ function Home() {
         <MapPin className="h-8 w-8 mx-auto text-primary mb-2" />
         <h3 className="font-display text-2xl font-bold mb-2">Visit Us</h3>
         <p className="text-muted-foreground">
-          123 Rahmat Road, Lucknow, India · Open Saturday–Thursday
+          Naya bazaar, Kamptee, dist. Nagpur, India · Open Saturday–Thursday
         </p>
       </section>
     </div>
