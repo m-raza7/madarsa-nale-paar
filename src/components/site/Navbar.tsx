@@ -35,8 +35,10 @@ export function SiteNavbar() {
             <Sparkles className="h-5 w-5 text-primary-foreground" />
           </div>
           <div className="leading-tight">
-            <div className="font-display text-lg font-bold text-primary">Al-Noor</div>
-            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Madarsa</div>
+            <div className="font-display text-lg font-bold text-primary">Nale-paar</div>
+            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+              Madarsa
+            </div>
           </div>
         </Link>
 
@@ -48,7 +50,9 @@ export function SiteNavbar() {
                 key={n.to}
                 to={n.to}
                 className={`px-3 py-2 text-sm font-medium rounded-md transition-all ${
-                  active ? "text-primary bg-accent" : "text-foreground/80 hover:text-primary hover:bg-accent/50"
+                  active
+                    ? "text-primary bg-accent"
+                    : "text-foreground/80 hover:text-primary hover:bg-accent/50"
                 }`}
               >
                 {n.label}
@@ -66,19 +70,31 @@ export function SiteNavbar() {
               <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex">
                 <Link to="/dashboard">Dashboard</Link>
               </Button>
-              <Button size="sm" variant="ghost" onClick={() => signOut()}>Sign out</Button>
+              <Button size="sm" variant="ghost" onClick={() => signOut()}>
+                Sign out
+              </Button>
             </>
           ) : (
             <>
               <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
                 <Link to="/auth">Login</Link>
               </Button>
-              <Button asChild size="sm" className="bg-primary-gradient shadow-elegant hidden sm:inline-flex">
+              <Button
+                asChild
+                size="sm"
+                className="bg-primary-gradient shadow-elegant hidden sm:inline-flex"
+              >
                 <Link to="/admission">Apply</Link>
               </Button>
             </>
           )}
-          <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(!open)} aria-label="Menu">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="lg:hidden"
+            onClick={() => setOpen(!open)}
+            aria-label="Menu"
+          >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
@@ -99,11 +115,26 @@ export function SiteNavbar() {
             ))}
             <div className="flex gap-2 pt-2">
               {user ? (
-                <Button asChild className="flex-1" onClick={() => setOpen(false)}><Link to="/dashboard">Dashboard</Link></Button>
+                <Button asChild className="flex-1" onClick={() => setOpen(false)}>
+                  <Link to="/dashboard">Dashboard</Link>
+                </Button>
               ) : (
                 <>
-                  <Button asChild variant="outline" className="flex-1" onClick={() => setOpen(false)}><Link to="/auth">Login</Link></Button>
-                  <Button asChild className="flex-1 bg-primary-gradient" onClick={() => setOpen(false)}><Link to="/admission">Apply</Link></Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="flex-1"
+                    onClick={() => setOpen(false)}
+                  >
+                    <Link to="/auth">Login</Link>
+                  </Button>
+                  <Button
+                    asChild
+                    className="flex-1 bg-primary-gradient"
+                    onClick={() => setOpen(false)}
+                  >
+                    <Link to="/admission">Apply</Link>
+                  </Button>
                 </>
               )}
             </div>
