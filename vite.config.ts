@@ -13,38 +13,14 @@
 //     server: { entry: "server" },
 //   },
 // });
-
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  nitro: true,
+
   tanstackStart: {
     server: {
       entry: "server",
-    },
-  },
-  // Additional Vite-specific configuration should be nested under the `vite` key
-  // because @lovable.dev/vite-tanstack-config expects LovableViteTanstackOptions.
-  vite: {
-    build: {
-      chunkSizeWarningLimit: 1000,
-
-      rollupOptions: {
-        output: {
-          manualChunks(id) {
-            if (id.includes("node_modules")) {
-              if (id.includes("react")) {
-                return "react";
-              }
-
-              if (id.includes("@tanstack")) {
-                return "tanstack";
-              }
-
-              return "vendor";
-            }
-          },
-        },
-      },
     },
   },
 });
