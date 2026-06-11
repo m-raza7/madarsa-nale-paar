@@ -12,7 +12,7 @@ function header(doc: jsPDF, title: string) {
   doc.setTextColor("#ffffff");
   doc.setFont("helvetica", "bold");
   doc.setFontSize(20);
-  doc.text("MADARSA AL-NOOR", 14, 14);
+  doc.text("MADARSA NALE-PAAR", 14, 14);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
   doc.text("Light of Knowledge  •  Est. 2005  •  Lucknow, India", 14, 21);
@@ -24,7 +24,11 @@ function header(doc: jsPDF, title: string) {
 function footer(doc: jsPDF) {
   doc.setFontSize(8);
   doc.setTextColor("#555");
-  doc.text(`Generated ${new Date().toLocaleDateString()} • This document is computer-generated.`, 14, 285);
+  doc.text(
+    `Generated ${new Date().toLocaleDateString()} • This document is computer-generated.`,
+    14,
+    285,
+  );
 }
 
 export type StudentICardData = {
@@ -92,7 +96,11 @@ export function downloadStudentICard(s: StudentICardData) {
   // Note
   doc.setFontSize(9);
   doc.setTextColor("#444");
-  doc.text("This card is the property of Madarsa Al-Noor and must be carried at all times.", 20, 160);
+  doc.text(
+    "This card is the property of Madarsa NALE-PAAR and must be carried at all times.",
+    20,
+    160,
+  );
   doc.text("If found, please return to the address above.", 20, 166);
 
   footer(doc);
@@ -127,31 +135,47 @@ export function downloadResult(r: ResultData) {
   ];
   let y = 46;
   meta.forEach(([k, v]) => {
-    doc.setTextColor("#666"); doc.text(`${k}:`, 14, y);
-    doc.setTextColor("#111"); doc.setFont("helvetica","bold"); doc.text(String(v), 55, y);
-    doc.setFont("helvetica","normal"); y += 7;
+    doc.setTextColor("#666");
+    doc.text(`${k}:`, 14, y);
+    doc.setTextColor("#111");
+    doc.setFont("helvetica", "bold");
+    doc.text(String(v), 55, y);
+    doc.setFont("helvetica", "normal");
+    y += 7;
   });
 
-  const subjects = r.subjects ?? [{ name: r.exam_name, total: r.total_marks, obtained: r.obtained_marks }];
+  const subjects = r.subjects ?? [
+    { name: r.exam_name, total: r.total_marks, obtained: r.obtained_marks },
+  ];
   autoTable(doc, {
     startY: y + 4,
     head: [["Subject", "Total", "Obtained", "Percentage"]],
-    body: subjects.map((s) => [s.name, String(s.total), String(s.obtained), `${((s.obtained / s.total) * 100).toFixed(1)}%`]),
+    body: subjects.map((s) => [
+      s.name,
+      String(s.total),
+      String(s.obtained),
+      `${((s.obtained / s.total) * 100).toFixed(1)}%`,
+    ]),
     headStyles: { fillColor: EMERALD, textColor: "#fff", fontStyle: "bold" },
     alternateRowStyles: { fillColor: "#f4f9f4" },
     margin: { left: 14, right: 14 },
   });
 
   const pct = ((r.obtained_marks / r.total_marks) * 100).toFixed(1);
-  const finalY = (doc as unknown as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 10;
+  const finalY =
+    (doc as unknown as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 10;
   doc.setFillColor("#f4f9f4");
   doc.roundedRect(14, finalY, 182, 26, 2, 2, "F");
-  doc.setFont("helvetica","bold"); doc.setFontSize(12); doc.setTextColor(EMERALD);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  doc.setTextColor(EMERALD);
   doc.text(`Total: ${r.obtained_marks} / ${r.total_marks}   (${pct}%)`, 20, finalY + 10);
   doc.setTextColor(GOLD);
   doc.text(`Grade: ${r.grade ?? "—"}`, 20, finalY + 19);
   if (r.remarks) {
-    doc.setFont("helvetica","normal"); doc.setFontSize(10); doc.setTextColor("#333");
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor("#333");
     doc.text(`Remarks: ${r.remarks}`, 90, finalY + 14);
   }
 

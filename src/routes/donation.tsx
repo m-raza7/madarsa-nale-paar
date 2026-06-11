@@ -15,12 +15,12 @@ import emailjs from "@emailjs/browser";
 export const Route = createFileRoute("/donation")({
   head: () => ({
     meta: [
-      { title: "Donate — Madarsa Al-Noor" },
+      { title: "Donate — Madarsa NALE-PAAR" },
       {
         name: "description",
         content: "Support sacred education through Zakat, Sadaqah and Lillah donations.",
       },
-      { property: "og:title", content: "Donate to Madarsa Al-Noor" },
+      { property: "og:title", content: "Donate to Madarsa NALE-PAAR" },
       {
         property: "og:description",
         content: "Your contribution sponsors students and preserves Islamic learning.",
@@ -180,7 +180,7 @@ function Donation() {
             </div>
             <dl className="text-sm grid grid-cols-3 gap-y-1.5">
               <dt className="text-muted-foreground">Account Name</dt>
-              <dd className="col-span-2 font-medium">Madarsa Al-Noor Trust</dd>
+              <dd className="col-span-2 font-medium">Madarsa NALE-PAAR Trust</dd>
               <dt className="text-muted-foreground">Account No.</dt>
               <dd className="col-span-2 font-medium">00000000000000</dd>
               <dt className="text-muted-foreground">IFSC</dt>

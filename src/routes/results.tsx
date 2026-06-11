@@ -12,7 +12,7 @@ import { downloadResult, downloadStudentICard } from "@/lib/pdf";
 export const Route = createFileRoute("/results")({
   head: () => ({
     meta: [
-      { title: "Results — Madarsa Al-Noor" },
+      { title: "Results — Madarsa NALE-PAAR" },
       { name: "description", content: "Check exam results by roll number and download as PDF." },
       { property: "og:title", content: "Results" },
       { property: "og:description", content: "Student results lookup." },
@@ -53,15 +53,26 @@ function Results() {
     e.preventDefault();
     if (!roll.trim()) return;
     setLoading(true);
-    setStudent(null); setResults([]);
+    setStudent(null);
+    setResults([]);
     const { data: s } = await supabase
       .from("students")
-      .select("id, roll_number, full_name, father_name, date_of_birth, mobile, address, enrollment_date, courses(name)")
+      .select(
+        "id, roll_number, full_name, father_name, date_of_birth, mobile, address, enrollment_date, courses(name)",
+      )
       .eq("roll_number", roll.trim())
       .maybeSingle();
-    if (!s) { toast.error("No student found with that roll number"); setLoading(false); return; }
+    if (!s) {
+      toast.error("No student found with that roll number");
+      setLoading(false);
+      return;
+    }
     setStudent(s as unknown as StudentRow);
-    const { data: rs } = await supabase.from("results").select("*").eq("student_id", s.id).order("exam_date", { ascending: false });
+    const { data: rs } = await supabase
+      .from("results")
+      .select("*")
+      .eq("student_id", s.id)
+      .order("exam_date", { ascending: false });
     setResults((rs ?? []) as ResultRow[]);
     setLoading(false);
   };
@@ -78,8 +89,19 @@ function Results() {
       <section className="container mx-auto px-4 py-12 max-w-3xl">
         <Card className="p-6 shadow-elegant">
           <form onSubmit={search} className="flex gap-3">
-            <div className="flex-1"><Label>Roll Number</Label><Input value={roll} onChange={(e) => setRoll(e.target.value)} placeholder="e.g. ALN-2024-001" required /></div>
-            <Button type="submit" disabled={loading} className="self-end bg-primary-gradient"><Search className="h-4 w-4 mr-2" />Search</Button>
+            <div className="flex-1">
+              <Label>Roll Number</Label>
+              <Input
+                value={roll}
+                onChange={(e) => setRoll(e.target.value)}
+                placeholder="e.g. ALN-2024-001"
+                required
+              />
+            </div>
+            <Button type="submit" disabled={loading} className="self-end bg-primary-gradient">
+              <Search className="h-4 w-4 mr-2" />
+              Search
+            </Button>
           </form>
         </Card>
 
@@ -88,22 +110,31 @@ function Results() {
             <div className="flex flex-wrap items-start gap-4 justify-between">
               <div>
                 <h2 className="font-display text-2xl font-bold">{student.full_name}</h2>
-                <p className="text-sm text-muted-foreground">Roll: <span className="font-medium text-foreground">{student.roll_number}</span> · Father: {student.father_name}</p>
-                <p className="text-sm text-muted-foreground">Course: {student.courses?.name ?? "—"}</p>
+                <p className="text-sm text-muted-foreground">
+                  Roll: <span className="font-medium text-foreground">{student.roll_number}</span> ·
+                  Father: {student.father_name}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Course: {student.courses?.name ?? "—"}
+                </p>
               </div>
               <Button
                 variant="outline"
-                onClick={() => downloadStudentICard({
-                  roll_number: student.roll_number,
-                  full_name: student.full_name,
-                  father_name: student.father_name,
-                  course_name: student.courses?.name,
-                  date_of_birth: student.date_of_birth,
-                  address: student.address ?? "",
-                  mobile: student.mobile ?? "",
-                  enrollment_date: student.enrollment_date,
-                })}
-              ><Download className="h-4 w-4 mr-2" /> I-Card PDF</Button>
+                onClick={() =>
+                  downloadStudentICard({
+                    roll_number: student.roll_number,
+                    full_name: student.full_name,
+                    father_name: student.father_name,
+                    course_name: student.courses?.name,
+                    date_of_birth: student.date_of_birth,
+                    address: student.address ?? "",
+                    mobile: student.mobile ?? "",
+                    enrollment_date: student.enrollment_date,
+                  })
+                }
+              >
+                <Download className="h-4 w-4 mr-2" /> I-Card PDF
+              </Button>
             </div>
           </Card>
         )}
@@ -114,26 +145,43 @@ function Results() {
             {results.map((r) => {
               const pct = ((r.obtained_marks / r.total_marks) * 100).toFixed(1);
               return (
-                <Card key={r.id} className="p-5 flex items-center justify-between hover:shadow-elegant">
+                <Card
+                  key={r.id}
+                  className="p-5 flex items-center justify-between hover:shadow-elegant"
+                >
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-lg bg-gold-gradient grid place-items-center"><FileText className="h-5 w-5 text-gold-foreground" /></div>
+                    <div className="h-10 w-10 rounded-lg bg-gold-gradient grid place-items-center">
+                      <FileText className="h-5 w-5 text-gold-foreground" />
+                    </div>
                     <div>
                       <p className="font-display font-bold">{r.exam_name}</p>
-                      <p className="text-xs text-muted-foreground">{r.exam_date ?? "—"} · {r.obtained_marks}/{r.total_marks} ({pct}%) · Grade {r.grade ?? "—"}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {r.exam_date ?? "—"} · {r.obtained_marks}/{r.total_marks} ({pct}%) · Grade{" "}
+                        {r.grade ?? "—"}
+                      </p>
                     </div>
                   </div>
-                  <Button size="sm" variant="outline" onClick={() => student && downloadResult({
-                    student_name: student.full_name,
-                    roll_number: student.roll_number,
-                    course_name: student.courses?.name,
-                    exam_name: r.exam_name,
-                    exam_date: r.exam_date,
-                    total_marks: r.total_marks,
-                    obtained_marks: r.obtained_marks,
-                    grade: r.grade,
-                    remarks: r.remarks,
-                    subjects: r.subjects,
-                  })}><Download className="h-4 w-4 mr-1" /> PDF</Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() =>
+                      student &&
+                      downloadResult({
+                        student_name: student.full_name,
+                        roll_number: student.roll_number,
+                        course_name: student.courses?.name,
+                        exam_name: r.exam_name,
+                        exam_date: r.exam_date,
+                        total_marks: r.total_marks,
+                        obtained_marks: r.obtained_marks,
+                        grade: r.grade,
+                        remarks: r.remarks,
+                        subjects: r.subjects,
+                      })
+                    }
+                  >
+                    <Download className="h-4 w-4 mr-1" /> PDF
+                  </Button>
                 </Card>
               );
             })}
@@ -141,7 +189,9 @@ function Results() {
         )}
 
         {student && results.length === 0 && (
-          <Card className="p-8 mt-6 text-center text-muted-foreground">No results published yet for this student.</Card>
+          <Card className="p-8 mt-6 text-center text-muted-foreground">
+            No results published yet for this student.
+          </Card>
         )}
       </section>
     </div>

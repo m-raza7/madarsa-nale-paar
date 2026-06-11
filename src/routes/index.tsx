@@ -22,13 +22,13 @@ import quranImg from "@/assets/quran.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Madarsa Al-Noor — Premier Islamic Seminary" },
+      { title: "Madarsa NALE-PAAR — Premier Islamic Seminary" },
       {
         name: "description",
         content:
           "Hifz, Alim, Tajweed, Arabic and Islamic Studies under expert scholars. Admissions open for the new academic session.",
       },
-      { property: "og:title", content: "Madarsa Al-Noor — Light of Knowledge" },
+      { property: "og:title", content: "Madarsa NALE-PAAR — Light of Knowledge" },
       {
         property: "og:description",
         content: "Premier Islamic seminary with 20+ years of service.",
@@ -73,7 +73,7 @@ function Home() {
       <section className="relative overflow-hidden">
         <img
           src={heroImg}
-          alt="Madarsa Al-Noor majestic Islamic architecture"
+          alt="Madarsa NALE-PAAR majestic Islamic architecture"
           width={1920}
           height={1080}
           className="absolute inset-0 h-full w-full object-cover"
@@ -92,7 +92,7 @@ function Home() {
               طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ
             </p>
             <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4">
-              Madarsa <span className="gradient-text">Nale-paar</span>
+              Madarsa <span className="gradient-text">Nale-Paar</span>
             </h1>
             <p className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto mb-8 italic">
               "Seeking knowledge is an obligation upon every Muslim."
@@ -155,7 +155,7 @@ function Home() {
             A Sanctuary of <span className="gradient-text">Sacred Knowledge</span>
           </h2>
           <p className="text-muted-foreground mb-4 leading-relaxed">
-            For over two decades, Madarsa Al-Noor has nurtured generations of students in the
+            For over two decades, Madarsa NALE-PAAR has nurtured generations of students in the
             timeless tradition of Islamic scholarship — combining classical curricula with modern
             pedagogy, character building, and community service.
           </p>

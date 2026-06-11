@@ -14,13 +14,13 @@ import { z } from "zod";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Madarsa Al-Noor" },
+      { title: "Contact — Madarsa NALE-PAAR" },
       {
         name: "description",
-        content: "Reach Madarsa Al-Noor by phone, email, WhatsApp or visit our campus.",
+        content: "Reach Madarsa NALE-PAAR by phone, email, WhatsApp or visit our campus.",
       },
       { property: "og:title", content: "Contact" },
-      { property: "og:description", content: "Get in touch with Madarsa Al-Noor." },
+      { property: "og:description", content: "Get in touch with Madarsa NALE-PAAR." },
     ],
   }),
   component: Contact,
@@ -77,7 +77,11 @@ function Contact() {
       <section className="container mx-auto px-4 py-14 grid lg:grid-cols-2 gap-8">
         <div className="space-y-4">
           {[
-            { icon: MapPin, label: "Address", value: "Naya bazaar, Kamptee, dist. Nagpur, India" },
+            {
+              icon: MapPin,
+              label: "Address",
+              value: "Naya bazaar, Kamptee 441001, dist. Nagpur, India",
+            },
             { icon: Phone, label: "Phone", value: "+91 90000 00000" },
             { icon: Mail, label: "Email", value: "info@madrasaalnoor.edu" },
           ].map((c) => (

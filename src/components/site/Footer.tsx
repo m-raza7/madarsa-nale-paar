@@ -11,7 +11,7 @@ export function SiteFooter() {
               <Sparkles className="h-5 w-5 text-gold-foreground" />
             </div>
             <div>
-              <div className="font-display text-lg font-bold gradient-text">Madarsa Al-Noor</div>
+              <div className="font-display text-lg font-bold gradient-text">Madarsa Nale-Paar</div>
               <div className="text-[10px] uppercase tracking-widest text-sidebar-foreground/60">
                 Light of Knowledge
               </div>
@@ -73,7 +73,7 @@ export function SiteFooter() {
           <ul className="space-y-3 text-sm text-sidebar-foreground/80">
             <li className="flex gap-2">
               <MapPin className="h-4 w-4 mt-0.5 text-gold" />
-              <span>Naya bazaar, Kamptee, dist. Nagpur, India</span>
+              <span>Naya bazaar, Kamptee 441001, dist. Nagpur, India</span>
             </li>
             <li className="flex gap-2">
               <Phone className="h-4 w-4 mt-0.5 text-gold" />
@@ -110,7 +110,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-sidebar-border py-5 text-center text-xs text-sidebar-foreground/60">
-        © {new Date().getFullYear()} Madarsa Al-Noor. All rights reserved.
+        © {new Date().getFullYear()} Madarsa NALE-PAAR. All rights reserved.
       </div>
     </footer>
   );

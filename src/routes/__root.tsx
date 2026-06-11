@@ -27,7 +27,10 @@ function NotFoundComponent() {
           The page you're looking for doesn't exist or has been moved.
         </p>
         <div className="mt-6">
-          <Link to="/" className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
             Go home
           </Link>
         </div>
@@ -50,10 +53,20 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <p className="mt-2 text-sm text-muted-foreground">Something went wrong. Try refreshing.</p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
-            onClick={() => { router.invalidate(); reset(); }}
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
             className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-          >Try again</button>
-          <a href="/" className="rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent">Go home</a>
+          >
+            Try again
+          </button>
+          <a
+            href="/"
+            className="rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent"
+          >
+            Go home
+          </a>
         </div>
       </div>
     </div>
@@ -65,11 +78,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Madarsa Al-Noor — Light of Knowledge" },
-      { name: "description", content: "Madarsa Al-Noor — a premier Islamic seminary offering Hifz, Alim, Tajweed, Arabic and Islamic Studies. Admissions open." },
-      { name: "author", content: "Madarsa Al-Noor" },
-      { property: "og:title", content: "Madarsa Al-Noor — Light of Knowledge" },
-      { property: "og:description", content: "Premier Islamic seminary — Hifz, Alim, Tajweed, Arabic, Islamic Studies." },
+      { title: "Madarsa NALE-PAAR — Light of Knowledge" },
+      {
+        name: "description",
+        content:
+          "Madarsa NALE-PAAR — a premier Islamic seminary offering Hifz, Alim, Tajweed, Arabic and Islamic Studies. Admissions open.",
+      },
+      { name: "author", content: "Madarsa NALE-PAAR" },
+      { property: "og:title", content: "Madarsa NALE-PAAR — Light of Knowledge" },
+      {
+        property: "og:description",
+        content: "Premier Islamic seminary — Hifz, Alim, Tajweed, Arabic, Islamic Studies.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -92,8 +112,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <head><HeadContent /></head>
-      <body>{children}<Scripts /></body>
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
     </html>
   );
 }

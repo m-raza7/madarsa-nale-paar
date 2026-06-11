@@ -35,7 +35,7 @@ export function SiteNavbar() {
             <Sparkles className="h-5 w-5 text-primary-foreground" />
           </div>
           <div className="leading-tight">
-            <div className="font-display text-lg font-bold text-primary">Nale-paar</div>
+            <div className="font-display text-lg font-bold text-primary">NALE-PAAR</div>
             <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
               Madarsa
             </div>
