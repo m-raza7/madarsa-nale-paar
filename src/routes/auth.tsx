@@ -94,7 +94,9 @@ function Auth() {
             <Sparkles className="h-7 w-7 text-primary-foreground" />
           </div>
           <h1 className="font-display text-3xl font-bold">Welcome</h1>
-          <p className="text-sm text-muted-foreground">Sign in to access the NALE-PAAR portal</p>
+          <p className="text-sm text-muted-foreground">
+            Sign in to access the Madarsa Nale-Paar portal
+          </p>
         </div>
 
         <Tabs defaultValue="login" className="w-full">
